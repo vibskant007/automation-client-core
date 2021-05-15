@@ -1,3 +1,4 @@
 # rest-client-core
 
-- Command Pattern implemented to call rest api(s).
+- Extensible client and easily pluggable. 
+- Open/Closed Principle.
