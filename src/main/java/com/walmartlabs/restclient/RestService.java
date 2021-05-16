@@ -1,7 +1,5 @@
 package com.walmartlabs.restclient;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
@@ -9,8 +7,6 @@ import java.util.Map;
 
 public class RestService {
 
-    private String baseUri;
-    private String basePath;
     private Map<String,Object> requestHeaderMap;
     private Map<String,Object> queryMap;
 
@@ -22,12 +18,24 @@ public class RestService {
     }
 
     public Response doGet(String path) {
-        Response response = RestAssured.given().when().get(path);
-        return response;
+        if(requestHeaderMap!=null)
+            return RestAssured.given().headers(requestHeaderMap).when().get(path);
+
+        else if(requestHeaderMap!=null && queryMap!=null)
+            return RestAssured.given().headers(requestHeaderMap).queryParams(queryMap).when().get(path);
+
+        else
+            return RestAssured.given().when().get(path);
     }
 
     public Response doPost(String path,Object body) {
-        Response response = RestAssured.given().headers(requestHeaderMap).body(body).post(path);
-        return response;
+        if(requestHeaderMap!=null)
+            return RestAssured.given().headers(requestHeaderMap).body(body).post(path);
+
+        else if(requestHeaderMap!=null && queryMap!=null)
+            return RestAssured.given().headers(requestHeaderMap).queryParams(queryMap).body(body).post(path);
+
+        else
+            return RestAssured.given().when().body(body).post(path);
     }
 }
