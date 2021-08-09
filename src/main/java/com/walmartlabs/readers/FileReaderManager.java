@@ -1,5 +1,7 @@
 package com.walmartlabs.readers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 public class FileReaderManager {
 
     private static FileReaderManager fileReaderManager = new FileReaderManager();
@@ -13,8 +15,9 @@ public class FileReaderManager {
         return fileReaderManager;
     }
 
-    public  ConfigReader getConfigReader() {
+    public ConfigReader getConfigReader() {
         return configReader;
     }
+
 
 }
